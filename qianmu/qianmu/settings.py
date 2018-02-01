@@ -16,33 +16,44 @@ NEWSPIDER_MODULE = 'qianmu.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'qianmu (+http://www.yourdomain.com)'
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+# 是否遵循robot协议 如果打开 则会在所有请求开始执勤啊，先打开网站根目录下robots.txt文件
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+# 请求并发数量 默认是16个
+CONCURRENT_REQUESTS = 2
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+# 请求时间的间隔单位s
+DOWNLOAD_DELAY = 0
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+# 是否使用cookie
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+    'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    'Accept-Encoding': "gzip, deflate",
+    'Accept-Language': "zh-CN,zh;q=0.8",
+    'Cache-Control': "no-cache",
+    'Connection': "keep-alive",
+    'Host': "qianmu.iguye.com",
+    # 'If-Modified-Since': "Sun, 07 Jan 2018 16:20:20 GMT",
+    # 'If-None-Match': "W/\"5a5248c4-ba82\"",
+    'Upgrade-Insecure-Requests': "1",
+}
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
@@ -64,9 +75,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'qianmu.pipelines.QianmuPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'qianmu.pipelines.CheckPipeline': 300,
+   'qianmu.pipelines.RedisPipeline': 301,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

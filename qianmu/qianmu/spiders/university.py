@@ -2,6 +2,9 @@
 import scrapy
 from scrapy.http.response.html import HtmlResponse
 
+from qianmu.items import UniversityItem
+
+
 class UniversitySpider(scrapy.Spider):
     name = 'university'
     allowed_domains = ['qianmu.iguye.com']
@@ -31,10 +34,9 @@ class UniversitySpider(scrapy.Spider):
         # 解析大学详情页面
         # 去除网页内的特殊符号
         response = response.replace(body = response.body.decode('utf-8').replace('\t', ''))
-        item = {
-            'name' : response.xpath('//h1[@class="wikiTitle"]/text()').extract_first(),
-            'rank' : response.meta['rank']
-        }
+        item = UniversityItem(
+            name=response.xpath('//h1[@class="wikiTitle"]/text()').extract_first(),
+            rank=response.meta['rank'])
         # 选择出表格的父节点，以减少代码量
         infobox = response.xpath('//div[@id="wikiContent"]/div[@class="infobox"]')[0]
         # 选择出表格中每一行的第一列中的文本
@@ -44,6 +46,12 @@ class UniversitySpider(scrapy.Spider):
         # 便利第二列的节点，并去除每一个单元格中的文本
         values = [','.join(col.xpath('.//text()').extract()) for col in cols]
         # 最后，将第一列 第二列中的数据合并成一个字典 组成该大学的信息
-        item.update(zip(keys, values))
+        data = dict(zip(keys, values))
+        item['country'] = data.get('国家')
+        item['state']  = data.get('州省')
+        item['city'] = data.get('城市')
+        item['undergraduate_num'] = data.get('本科生人数')
+        item['postgraduate_num'] = data.get('研究生人数')
+        item['website'] = data.get('网址')
         yield item
         self.logger.info('item %s scraped' % item['name'])
