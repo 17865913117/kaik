@@ -39,6 +39,11 @@ DOWNLOAD_DELAY = 0
 # 是否使用cookie
 COOKIES_ENABLED = False
 
+# 使用代理
+HTTPPROXY_ENABLED = True
+# 自定义代理配置
+PROXIES = ["http://39.107.71.196:8888"]
+
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
@@ -63,9 +68,11 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'qianmu.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'qianmu.middlewares.useragent.RandomUserAgentMiddleware': 543,
+   'qianmu.middlewares.proxy.RandomProxyMiddleware': 749,
+
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -78,7 +85,7 @@ DEFAULT_REQUEST_HEADERS = {
 ITEM_PIPELINES = {
    'qianmu.pipelines.CheckPipeline': 300,
    # 'qianmu.pipelines.RedisPipeline': 301,
-    'qianmu.pipelines.MysqlPipeline': 302,
+   'qianmu.pipelines.MysqlPipeline': 302,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

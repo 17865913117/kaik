@@ -68,9 +68,7 @@ class MysqlPipeline(object):
         cols, values = zip(*item.items())
         sql = "INSERT INTO `universities` (%s) VALUES (%s)" % \
             (','.join(cols), ','.join(['%s'] * len(values)))
-        self.cur.execute(sql,(item['name'],item['rank'],item['country'],
-                              item['state'],item['city'],item['undergraduate_num'],
-                              item['postgraduate_num'],item['website']))
+        self.cur.execute(sql, values)
         self.conn.commit()
         print('mysql: add %s to universities' % item['name'])
         return item
