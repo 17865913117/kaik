@@ -77,7 +77,8 @@ DEFAULT_REQUEST_HEADERS = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'qianmu.pipelines.CheckPipeline': 300,
-   'qianmu.pipelines.RedisPipeline': 301,
+   # 'qianmu.pipelines.RedisPipeline': 301,
+    'qianmu.pipelines.MysqlPipeline': 302,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
