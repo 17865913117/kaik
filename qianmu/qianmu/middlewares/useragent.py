@@ -16,5 +16,5 @@ class RandomUserAgentMiddleware(object):
         request.headers['User-Agent'] = self.faker.user_agent()
 
     def process_response(self, request, response, spider):
-        print(request.headers['User-Agent'])
+        # print(request.headers['User-Agent'])
         return response
