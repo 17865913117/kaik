@@ -22,9 +22,17 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 # 是否遵循robot协议 如果打开 则会在所有请求开始执勤啊，先打开网站根目录下robots.txt文件
 ROBOTSTXT_OBEY = False
 
+DOWNLOAD_TIMEOUT = 5
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # 请求并发数量 默认是16个
 CONCURRENT_REQUESTS = 2
+
+# 增加线程池的数量
+# REACTOR_THREADPOOL_MAXSIZE = 20
+# 提高日志级别
+LOG_LEVEL = 'INFO'
+# 禁止重定向
+ERDIRECT_ENABLED = False
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -38,9 +46,13 @@ DOWNLOAD_DELAY = 0
 # Disable cookies (enabled by default)
 # 是否使用cookie
 COOKIES_ENABLED = False
+# 禁用重试
+RETRY_ENABLED = False
 
 # 使用代理
-HTTPPROXY_ENABLED = True
+# HTTPPROXY_ENABLED = True
+HTTPPROXY_ENABLED = False
+
 # 自定义代理配置
 PROXIES = ['http://user:123@39.107.64.28:8888',
  'http://user:123@47.95.119.53:8888',
@@ -70,6 +82,8 @@ PROXIES = ['http://user:123@39.107.64.28:8888',
  # 'http://39.106.198.33:8888'
 ]
 
+# 减少等待时间
+DOWNLOAD_TIMEOUT = 5
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
