@@ -34,7 +34,7 @@ class CheckPipeline(object):
 class RedisPipeline(object):
     '''将大学名称存入到redis中'''
     def __init__(self):
-        self.r = redis.Redis()
+        self.r = redis.Redis(password="000000")
 
     def process_item(self,item,spider):
         self.r.sadd(spider.name,item['name'])

@@ -39,7 +39,7 @@ def parse(html):
         link_queue.put(link)
 
 
-def parese_unversity(html):
+def parse_unversity(html):
     # 解析大学详情页面
     dom = etree.HTML(html)
     # 选择出表格的父节点，以减少代码量
@@ -63,7 +63,7 @@ def downloader():
         if link is None:
             break
         # 下载并解析大学详情网页
-        parese_unversity(fetch(link))
+        parse_unversity(fetch(link))
         # 想队列发送任务完成信号
         link_queue.task_done()
         print('remaining queue %s' % link_queue.qsize())
